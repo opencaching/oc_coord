@@ -1,0 +1,8 @@
+# oc_coord automatic update from GitHub repository
+
+# allow running without being actually logged in to a real tty
+Defaults:SITE_USER !requiretty
+
+# allow sudo
+
+HTTPD_USER ALL = NOPASSWD: /var/www/oc_coord-update.sh

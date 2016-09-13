@@ -1,0 +1,81 @@
+Server configurations
+=====================
+
+    Required server configurations for running oc_coord redirection service.
+    
+    This can function as both a stand-alone service and as a distributed, 
+    multi-hosted service (using multiple DNS records in a round-robin fashion).
+    
+Apache virtualhost configuration
+--------------------------------    
+
+###########################################################################
+# coord.eu
+#
+
+<VirtualHost *:80>
+    ServerName coord.eu
+    ServerAlias ro.coord.eu                 # replace the prefix with yours
+    ServerAdmin contact@opencaching.ro      # replace with yours
+    DocumentRoot /www/path/to/oc_coord
+
+    ErrorLog /var/log/httpd/path/to/coord/error.log
+    CustomLog /var/log/httpd/path/to/coord/access.log combined
+
+    DirectoryIndex index.htm index.html index.php index.shtml
+
+    <Directory /www/path/to/oc_coord>
+        AllowOverride all
+        Options -Indexes
+        Require all granted
+    </Directory>
+
+    RewriteEngine on
+    RewriteMap hex2dec prg:/www/path/to/oc_coord/cgi/hex2dec.pl
+
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName www.coord.eu
+#    ServerAlias -
+    Redirect permanent / http://coord.eu/
+</VirtualHost>
+
+### END ###################################################################
+
+    Replace path elements as required by your server.
+    
+    Note: ServerAlias directive allows this to run as an independent multi-hosted
+    service (with multiple DNS records) and each host have it's own local name.
+    
+    Note: RewriteMap is required for Geokrety functionality.
+    
+
+Update script
+=============
+
+oc_coord-update.sh
+------------------
+	bash script to perform automatic update on every git commit to the repository.
+	This file MUST be installed in /var/www
+	
+	Choose one of the following and edit it with your node's configuration:
+	
+	* oc_coord-update.basic.sh: minimal script to perform the update
+	
+	* oc_coord-update.extended.sh: extended script with more configurable options
+	  and logging support. 
+		- set the following variables to proper values:
+			SITE_NAME - YOUR_HOSTNAME (as FQDN, not URL)
+			SITE_ROOT - site root directory
+			SITE_USER - unix user owner of the website files
+		- defined your options:
+			DO_LOG - set to 1 to log each update to /var/log/cron
+			KEEP_LOCAL - set to 1 to safeguard local changes during an update.
+		                 use this ONLY if absolutely necessary.
+		- requires permissions in sudoers. 
+			copy sudoers.oc_coord to /etc/sudoers.d (or integrate it into
+			/etc/sudoers)
+			replace SITE_USER with unix user owner of the website files
+			replace HTTPD_USER with unix user Apache web server run as.
+			(usually apache or www)

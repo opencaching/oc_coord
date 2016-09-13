@@ -1,0 +1,36 @@
+RewriteEngine on
+RewriteBase /
+
+### OPENCACHING waypoints
+##########################################################################
+
+# opencaching.RO
+RewriteRule ^(OR[0-9A-Z]{4,6})$ http://www.opencaching.ro/viewcache.php?wp=$1 [R=301,L,NC]
+
+# opencaching.PL
+RewriteRule ^(OP[0-9A-Z]{4,6})$ http://opencaching.pl/viewcache.php?wp=$1 [R=301,L,NC]
+
+# opencaching.NL
+RewriteRule ^(OB[0-9A-Z]{4,6})$ http://www.opencaching.nl/viewcache.php?wp=$1 [R=301,L,NC]
+
+# opencaching.DE opencaching.IT opencaching.FR opencachingspain.ES
+RewriteRule ^(OC[0-9A-Z]{4,6})$ http://www.opencaching.de/viewcache.php?wp=$1 [R=301,L,NC]
+
+# opencaching.org.UK
+RewriteRule ^(OK[0-9A-Z]{4,6})$ http://www.opencaching.org.uk/viewcache.php?wp=$1 [R=301,L,NC]
+
+# opencaching.US
+RewriteRule ^(OU[0-9A-Z]{4,6})$ http://www.opencaching.us/viewcache.php?wp=$1 [R=301,L,NC]
+
+# opencaching.cz
+RewriteRule ^(OZ[0-9A-Z]{4,6})$ http://www.opencaching.cz/viewcache.php?wp=$1 [R=301,L,NC]
+
+### Trackables
+##########################################################################
+
+# geokrety.org
+# Log a geokrety
+RewriteRule ^GK/([0-9A-Z]{4,6})$ https://geokrety.org/ruchy.php?nr=$1 [R=301,L,NC]
+RewriteRule ^GK([0-9A-F]{4,6})$ https://geokrety.org/konkret.php?id=${hex2dec:$1} [R=301,L,NC]
+
+

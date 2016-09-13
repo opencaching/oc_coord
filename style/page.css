@@ -1,0 +1,41 @@
+
+H1, H2, H3, H4, H5, H6 {
+    margin: 0;
+    padding: 0;
+}
+
+#container {
+    margin: auto;
+    width: 960px;
+    min-height: 10em;
+    border: 1px #999 inset;
+    position: relative;
+}
+
+#header {
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+#header_content {
+    background-color: #EEF;
+    text-align: center;
+}
+#menu {
+    background-color: #FFE;
+    width: 100%;
+    min-height: 1em;
+}
+
+#footer {
+    position: absolute;
+    bottom: 0;
+    background-color: #FEE;
+    text-align: center;
+    width: 100%;
+}
+
+#content {
+    
+}
+
