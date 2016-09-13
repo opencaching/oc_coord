@@ -22,7 +22,7 @@ RewriteRule ^(OK[0-9A-Z]{4,6})$ http://www.opencaching.org.uk/viewcache.php?wp=$
 # opencaching.US
 RewriteRule ^(OU[0-9A-Z]{4,6})$ http://www.opencaching.us/viewcache.php?wp=$1 [R=301,L,NC]
 
-# opencaching.cz
+# opencaching.CZ
 RewriteRule ^(OZ[0-9A-Z]{4,6})$ http://www.opencaching.cz/viewcache.php?wp=$1 [R=301,L,NC]
 
 ### Trackables
