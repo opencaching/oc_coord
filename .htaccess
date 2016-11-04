@@ -16,8 +16,8 @@ RewriteRule ^(OB[0-9A-Z]{4,6})$ http://www.opencaching.nl/viewcache.php?wp=$1 [R
 # opencaching.DE opencaching.IT opencaching.FR opencachingspain.ES
 RewriteRule ^(OC[0-9A-Z]{4,6})$ http://www.opencaching.de/viewcache.php?wp=$1 [R=301,L,NC]
 
-# opencache.UK
-RewriteRule ^(OK[0-9A-Z]{4,6})$ http://www.opencache.uk/viewcache.php?wp=$1 [R=301,L,NC]
+# opencaching.org.UK
+RewriteRule ^(OK[0-9A-Z]{4,6})$ http://www.opencaching.org.uk/viewcache.php?wp=$1 [R=301,L,NC]
 
 # opencaching.US
 RewriteRule ^(OU[0-9A-Z]{4,6})$ http://www.opencaching.us/viewcache.php?wp=$1 [R=301,L,NC]
