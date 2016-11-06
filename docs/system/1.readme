@@ -1,13 +1,20 @@
+Software requirements
+=====================
+
+    * Apache webserver with mod_rewrite enabled
+    * Perl
+    * Git
+
 Server configurations
 =====================
 
     Required server configurations for running oc_coord redirection service.
-    
-    This can function as both a stand-alone service and as a distributed, 
+
+    This can function as both a stand-alone service and as a distributed,
     multi-hosted service (using multiple DNS records in a round-robin fashion).
-    
-Apache virtualhost configuration
---------------------------------    
+
+Apache virtual host configuration
+---------------------------------
 
 ###########################################################################
 # coord.eu
@@ -44,12 +51,12 @@ Apache virtualhost configuration
 ### END ###################################################################
 
     Replace path elements as required by your server.
-    
+
     Note: ServerAlias directive allows this to run as an independent multi-hosted
     service (with multiple DNS records) and each host have it's own local name.
-    
+
     Note: RewriteMap is required for Geokrety functionality.
-    
+
 
 Update script
 =============
@@ -64,7 +71,7 @@ oc_coord-update.sh
 	* oc_coord-update.basic.sh: minimal script to perform the update
 	
 	* oc_coord-update.extended.sh: extended script with more configurable options
-	  and logging support. 
+	  and logging support.
 		- set the following variables to proper values:
 			SITE_NAME - YOUR_HOSTNAME (as FQDN, not URL)
 			SITE_ROOT - site root directory
@@ -73,7 +80,7 @@ oc_coord-update.sh
 			DO_LOG - set to 1 to log each update to /var/log/cron
 			KEEP_LOCAL - set to 1 to safeguard local changes during an update.
 		                 use this ONLY if absolutely necessary.
-		- requires permissions in sudoers. 
+		- requires permissions in sudoers.
 			copy sudoers.oc_coord to /etc/sudoers.d (or integrate it into
 			/etc/sudoers)
 			replace SITE_USER with unix user owner of the website files
