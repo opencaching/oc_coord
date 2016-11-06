@@ -86,3 +86,9 @@ oc_coord-update.sh
 			replace SITE_USER with unix user owner of the website files
 			replace HTTPD_USER with unix user Apache web server run as.
 			(usually apache or www)
+
+IMPORTANT!!!
+============
+
+    Changes to the script(s) in RewriteMap require web server restart.
+    This should be done by the sysadmin, not the update script.
