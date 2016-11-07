@@ -7,6 +7,6 @@ cd /path/to/oc_coord
 
 # This assumes that git has been set up properly with the project repository
 # at https://github.com/opencaching/oc_coord.git
-git stash  2>&1 > /dev/null
-git pull --rebase 2>&1 > /dev/null
-git stash pop 2>&1 > /dev/null
+git stash
+git pull --rebase
+git stash pop
