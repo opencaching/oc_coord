@@ -59,7 +59,7 @@ if [ "$DO_LOG" == "1" ]; then
     echo "--- Updating ${SITE_NAME}..."				| logger ${LOG_LEVEL}
     # run update command(s)
     if [ "$KEEP_LOCAL" == "1" ]; then
-	${SUDO_CMD} ${CMD_PRE} 2>&1 > /dev/null
+	${SUDO_CMD} ${CMD_PRE} 2>/dev/null 1>/dev/null
     fi
 
     if [ "$SHOW_MODIFIED" == "1" ]; then
@@ -81,7 +81,7 @@ if [ "$DO_LOG" == "1" ]; then
     fi
 
     if [ "$KEEP_LOCAL" == "1" ]; then
-	${SUDO_CMD} ${CMD_POST} 2>&1 > /dev/null
+	${SUDO_CMD} ${CMD_POST} 2>/dev/null 1>/dev/null
     fi
     echo "- GIT update completed."				| logger ${LOG_LEVEL}
     echo 							| logger ${LOG_LEVEL}
@@ -91,12 +91,12 @@ else
     cd ${SITE_ROOT}
     # run update command(s) (no logging)
     if [ "$KEEP_LOCAL" == "1" ]; then
-	${SUDO_CMD} ${CMD_PRE} 2>&1 > /dev/null
+	${SUDO_CMD} ${CMD_PRE} 2>/dev/null 1>/dev/null
     fi
     # repository update
-    ${SUDO_CMD} ${CMD} ${REPO} ${BRANCH} 2> /dev/null 1> /dev/null
+    ${SUDO_CMD} ${CMD} ${REPO} ${BRANCH} 2>/dev/null 1>/dev/null
     if [ "$KEEP_LOCAL" == "1" ]; then
-	${SUDO_CMD} ${CMD_POST} 2>&1 > /dev/null
+	${SUDO_CMD} ${CMD_POST} 2>/dev/null 1>/dev/null
     fi
     )
 fi
