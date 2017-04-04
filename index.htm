@@ -5,13 +5,26 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>coord.eu - Waypoint redirection for Opencaching sites</title>
     <link rel="stylesheet" type="text/css" href="/style/page.css" />
+    <link rel="shortcut icon" href="images/opencaching-logo_notext.svg" />
 </head>
 
 <body>
 <div id="container">
 
+    <header>
+        <div id="header_content">
+            <h1>
+                <img src="images/opencaching-logo_notext.svg" width="28" style="vertical-align:middle">
+                coord.eu - Waypoint redirection for Opencaching sites
+                <img src="images/opencaching-logo_notext.svg" width="28" style="vertical-align:middle">
+            </h1>
+        </div>
+        <div id="menu">
+        </div>
+    </header>
+
     <div id="content">
-        <h3>Waypoint redirection for opencaching sites and other geocaching resources</h3>
+        <h2>Waypoint redirection for opencaching sites and other geocaching resources</h2>
         <h3>Supported opencaching sites:</h3>
         <ul>
             <li><b>OP</b> - Poland: <a href="http://opencaching.pl" target="_blank">opencaching.pl</a></li>
@@ -23,27 +36,38 @@
             <li><b>OU</b> - U.S.A.: <a href="http://www.opencaching.us" target="_blank">www.opencaching.us</a>
             <i>also Canada, Mexico</i></li>
             <li><b>OZ</b> - Czech Republic: <a href="http://www.opencaching.cz" target="_blank">www.opencaching.cz</a></li>
-        </ul>    
+        </ul>
+        
+        <h4>Usage:</h4>
+        <dl>
+            <dt>Waypoint:</dt>
+            <dd><span class="highlight">http://coord.eu/OX1234</span> - OX1234 is the waypoint code. 
+                <br />(<i>OX is the cache prefix of the opencaching site, see above</i>)<dd>
+            <dt>Users:</dt>
+            <dd><span class="highlight">http://coord.eu/OX/U123</span> - 123 is the user ID. 
+                <br />(<i>OX is the cache prefix of the opencaching site, see above</i>)<dd>
+        </dl>
 
         <h3>Supported trackables:</h3>
         <ul>
-            <li><b>GK</b> - GeoKrety trackable page : <a href="http://www.geokrety.org" target="_blank">geokrety.org</a></li>
-            <li><b>GK/CODE12</b> - Geokrety log page by tracking code : <a href="http://www.geokrety.org" target="_blank">geokrety.org</a></li>
-        </ul>    
+            <li><b>GK</b> - GeoKrety trackables; see : <a href="http://www.geokrety.org" target="_blank">geokrety.org</a></li>
+        </ul>
+        
+        <h4>Usage:</h4>
+        <dl>
+            <dt>GeoKret:</dt>
+            <dd><span class="highlight">http://coord.eu/GK1234</span> - GK1234 is the GeoKret ID.<dd>
+            <dt>Log a GeoKret:</dt>
+            <dd><span class="highlight">http://coord.eu/GK/CODE12</span> - CODE12 is the 6 character tracking code.<dd>
+        </dl>
+        
 
-    </div>    
-
-    <div id="header">
-        <div id="header_content">
-            <h1>coord.eu - Waypoint redirection for Opencaching sites</h1>
-        </div>    
-        <div id="menu">
-        </div>
     </div>
-    <div id="footer">
-        <p>&copy; 2016 <a href="http://coord.eu">coord.eu</a> &amp; <a href="http://www.opencaching.ro">OPENCACHING.ro</a>
+
+    <footer>
+        <p>&copy; 2017 <a href="http://coord.eu">coord.eu</a> &amp; <a href="http://www.opencaching.ro">OPENCACHING.ro</a>
         </p>
-    </div>
+    </footer>
 
 </div>
 </body>
