@@ -3,8 +3,9 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>coord.eu - Waypoint redirection for Opencaching sites</title>
-    <link rel="stylesheet" type="text/css" href="/style/page.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>coord.eu - Open-source waypoint redirection service for geocaching sites</title>
+    <link rel="stylesheet" type="text/css" href="style/page.css" />
     <link rel="shortcut icon" href="images/opencaching-logo_notext.svg" />
 </head>
 
@@ -14,9 +15,9 @@
     <header>
         <div id="header_content">
             <h1>
-                <img src="images/opencaching-logo_notext.svg" width="28" style="vertical-align:middle">
-                coord.eu - Waypoint redirection for Opencaching sites
-                <img src="images/opencaching-logo_notext.svg" width="28" style="vertical-align:middle">
+                <img src="images/opencaching-logo_notext.svg" width="28" style="vertical-align:middle" />
+                coord.eu - Open-source waypoint redirection service
+                <img src="images/opencaching-logo_notext.svg" width="28" style="vertical-align:middle" />
             </h1>
         </div>
         <div id="menu">
@@ -24,8 +25,8 @@
     </header>
 
     <div id="content">
-        <h2>Waypoint redirection for opencaching sites and other geocaching resources</h2>
-        <h3>Supported opencaching sites:</h3>
+        <h2>Waypoint redirection for Opencaching sites</h2>
+        <h3>Supported Opencaching sites:</h3>
         <ul>
             <li><b>OP</b> - Poland: <a href="http://opencaching.pl" target="_blank">opencaching.pl</a></li>
             <li><b>OB</b> - BeNeLux: <a href="http://www.opencaching.nl" target="_blank">www.opencaching.nl</a></li>
@@ -48,17 +49,39 @@
                 <br />(<i>OX is the cache prefix of the opencaching site, see above</i>)<dd>
         </dl>
 
+        <h3>Supported Geocaching sites:</h3>
+        <ul>
+            <li><b>GC</b> - Geocaching: <a href="https://www.geocaching.com" target="_blank">www.geocaching.com</a> by Groundspeak</li>
+        </ul>
+        
+        <h4>Usage:</h4>
+        <dl>
+            <dt>Waypoint:</dt>
+            <dd><span class="highlight">http://coord.eu/GC12345</span> - GC12345 is the waypoint code.<dd>
+            <dt>View log:</dt>
+            <dd><span class="highlight">http://coord.eu/GC/GL123456</span> - GL123456 is the log code.<dd>
+            <dt>Users:</dt>
+            <dd><i>NOT IMPLEMENTED yet</i><dd>
+        </dl>
+        
         <h3>Supported trackables:</h3>
         <ul>
             <li><b>GK</b> - GeoKrety trackables; see : <a href="http://www.geokrety.org" target="_blank">geokrety.org</a></li>
+            <li><b>GC</b> - TravelBugs and Geocoins; see : <a href="https://www.geocaching.com/track/" target="_blank">geocaching.com</a></li>
         </ul>
         
         <h4>Usage:</h4>
         <dl>
             <dt>GeoKret:</dt>
-            <dd><span class="highlight">http://coord.eu/GK1234</span> - GK1234 is the GeoKret ID.<dd>
+            <dd><span class="highlight">http://coord.eu/GK12345</span> - GK12345 is the GeoKret ID.<dd>
             <dt>Log a GeoKret:</dt>
             <dd><span class="highlight">http://coord.eu/GK/CODE12</span> - CODE12 is the 6 character tracking code.<dd>
+            <dt>TravelBug / Geocoin:</dt>
+            <dd><span class="highlight">http://coord.eu/TB12345</span> - TB12345 is the trackable ID.<dd>
+            <dt>Track a TravelBug / Geocoin:</dt>
+            <dd><span class="highlight">http://coord.eu/TB/ABC123</span> - ABC123 is the 6 character tracking code.<dd>
+            <dt>View trackable log:</dt>
+            <dd><span class="highlight">http://coord.eu/TB/TL123456</span> - TL123456 is the log ID.<dd>
         </dl>
         
 

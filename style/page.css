@@ -28,10 +28,12 @@ DT {
 }
 
 HEADER {
+/*
     position: absolute;
     top: 0;
-    width: 100%;
     height: 4em;
+*/
+    width: 100%;
 }
 #header_content {
     background-color: #EEF;
@@ -44,7 +46,8 @@ HEADER {
 }
 
 #content {
-    margin-top: 4em;
+/*    margin-top: 4em; */
+    margin-top: 1em; 
     margin-bottom: 1em;
     padding: 0.5em;
 }

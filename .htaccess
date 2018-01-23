@@ -36,8 +36,26 @@ RewriteRule ^OZ/U([0-9]{1,6})$ http://www.opencaching.ro/viewprofile.php?userid=
 ##########################################################################
 
 # geokrety.org
+RewriteRule ^GK([0-9A-F]{4,5})$ https://geokrety.org/konkret.php?id=${hex2dec:$1} [R=301,L,NC]
 # Log a geokrety
-RewriteRule ^GK/([0-9A-Z]{4,6})$ https://geokrety.org/ruchy.php?nr=$1 [R=301,L,NC]
-RewriteRule ^GK([0-9A-F]{4,6})$ https://geokrety.org/konkret.php?id=${hex2dec:$1} [R=301,L,NC]
+RewriteRule ^GK/([0-9A-Z]{6})$ https://geokrety.org/ruchy.php?nr=$1 [R=301,L,NC]
 
+### GEOCACHING.com
+##########################################################################
+
+# geocaching.com Geocache
+RewriteRule ^(GC[0-9A-Z]{1,6})$ https://coord.info/$1 [R=301,L,NC]
+# View log
+RewriteRule ^GC/(GL[0-9A-Z]{1,8})$ https://coord.info/$1 [R=301,L,NC]
+# View user profile
+# Documentation : https://www.geocaching.com/help/index.php?pg=kb.chapter&id=27&pgid=115
+# But this reflects only the latest policy, which is rather restrictive.
+#RewriteRule ^GC/U/([0-9A-Z\-_\.äöüëïÿæœßáéíóúýàèìòùâêîôûçñåůčěňřšžťøď]{2,20})$ https://www.geocaching.com/track/details.aspx?tracker=$1 [R=301,L,NC]
+
+# geocaching.com TravelBug & Geocoin
+RewriteRule ^(TB[0-9A-Z]{1,6})$ https://coord.info/$1 [R=301,L,NC]
+# Find trackable based on tracking code
+RewriteRule ^TB/([0-9]{6})$ https://www.geocaching.com/track/details.aspx?tracker=$1 [R=301,L,NC]
+# View trackable log
+RewriteRule ^TB/(TL[0-9A-Z]{1,8})$ https://coord.info/$1 [R=301,L,NC]
 
