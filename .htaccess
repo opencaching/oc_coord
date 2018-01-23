@@ -55,7 +55,7 @@ RewriteRule ^GC/(GL[0-9A-Z]{1,8})$ https://coord.info/$1 [R=301,L,NC]
 # geocaching.com TravelBug & Geocoin
 RewriteRule ^(TB[0-9A-Z]{1,6})$ https://coord.info/$1 [R=301,L,NC]
 # Find trackable based on tracking code
-RewriteRule ^TB/([0-9]{6})$ https://www.geocaching.com/track/details.aspx?tracker=$1 [R=301,L,NC]
+RewriteRule ^TB/([0-9A-Z]{6})$ https://www.geocaching.com/track/details.aspx?tracker=$1 [R=301,L,NC]
 # View trackable log
 RewriteRule ^TB/(TL[0-9A-Z]{1,8})$ https://coord.info/$1 [R=301,L,NC]
 
