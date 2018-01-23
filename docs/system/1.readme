@@ -12,6 +12,8 @@ Server configurations
 
     This can function as both a stand-alone service and as a distributed,
     multi-hosted service (using multiple DNS records in a round-robin fashion).
+    
+    You need Apache 2.4 with mod_rewrite enabled and a functioning PERL interpreter.
 
 Apache virtual host configuration
 ---------------------------------
@@ -86,6 +88,8 @@ oc_coord-update.sh
 			replace SITE_USER with unix user owner of the website files
 			replace HTTPD_USER with unix user Apache web server run as.
 			(usually apache or www)
+            
+        Note: at this time the location of the update script is predefined.    
 
 IMPORTANT!!!
 ============
