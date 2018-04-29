@@ -83,8 +83,8 @@ oc_coord-update.sh
 			KEEP_LOCAL - set to 1 to safeguard local changes during an update.
 		                 use this ONLY if absolutely necessary.
 		- requires permissions in sudoers.
-			copy sudoers.oc_coord to /etc/sudoers.d (or integrate it into
-			/etc/sudoers)
+			copy sudoers.oc_coord to /etc/sudoers.d and make it owned by root:root
+			(or integrate it into /etc/sudoers)
 			replace SITE_USER with unix user owner of the website files
 			replace HTTPD_USER with unix user Apache web server run as.
 			(usually apache or www)
