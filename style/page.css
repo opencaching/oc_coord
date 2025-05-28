@@ -26,6 +26,11 @@ DT {
     border: 1px #999 inset;
     position: relative;
 }
+@media(max-width: 960px) {
+    #container {
+        width: 100%;
+    }    
+}
 
 HEADER {
 /*

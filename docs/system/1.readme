@@ -4,6 +4,8 @@ Software requirements
     * Apache webserver with mod_rewrite enabled
     * Perl
     * Git
+    * dehydrated (LetsEncrypt client)
+    * Bind (only installed, for dnssec-keygen and nsupdate)
 
 Server configurations
 =====================
@@ -22,6 +24,7 @@ Apache virtual host configuration
 # coord.eu
 #
 
+### Primary site
 <VirtualHost *:80>
     ServerName coord.eu
     ServerAlias ro.coord.eu                 # replace the prefix with yours
@@ -40,25 +43,202 @@ Apache virtual host configuration
     </Directory>
 
     RewriteEngine on
+    # Cancel /manual server-level alias
+    RewriteRule ^/manual(.*) /other-manual$1 [L]
+
     RewriteMap hex2dec prg:/www/path/to/oc_coord/cgi/hex2dec.pl
 
 </VirtualHost>
 
+### Redirect if called with www
 <VirtualHost *:80>
     ServerName www.coord.eu
 #    ServerAlias -
     Redirect permanent / http://coord.eu/
 </VirtualHost>
 
+### Secure primary site
+<VirtualHost *:443>
+    ServerName coord.eu
+    ServerAlias ro.coord.eu                 # replace the prefix with yours
+    ServerAdmin contact@opencaching.ro      # replace with yours
+    DocumentRoot /www/path/to/oc_coord
+
+    ErrorLog /var/log/httpd/path/to/coord/error.log
+    CustomLog /var/log/httpd/path/to/coord/access.log combined
+
+<IfModule ssl_module>
+    SSLEngine on
+    
+    SSLCertificateFile "/etc/cert/coord.crt"            # certificate
+    SSLCertificateKeyFile "/etc/cert/coord.key"         # private key
+    SSLCACertificateFile "/etc/cert/coord_ca.crt"       # CA certificate
+
+    # Enable HTTP Strict-Transport-Security (HSTS)
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubdomains; preload"
+</IfModule>
+
+    DirectoryIndex index.htm index.html index.php index.shtml
+
+    <Directory /www/path/to/oc_coord>
+        AllowOverride all
+        Options -Indexes
+        Require all granted
+        SSLRequireSSL
+    </Directory>
+
+    RewriteEngine on
+    # Cancel /manual server-level alias
+    RewriteRule ^/manual(.*) /other-manual$1 [L]
+
+    RewriteMap hex2dec prg:/www/path/to/oc_coord/cgi/hex2dec.pl
+
+</VirtualHost>
+
+<VirtualHost *:443>
+    ServerName www.coord.eu
+#    ServerAlias -
+    Redirect permanent / http://coord.eu/
+
+<IfModule ssl_module>
+    SSLEngine on
+
+    SSLCertificateFile "/etc/cert/coord.crt"
+    SSLCertificateKeyFile "/etc/cert/coord.key"
+    SSLCACertificateFile "/etc/cert/coord_ca.crt"
+
+    # Enable HTTP Strict-Transport-Security (HSTS)
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubdomains; preload"
+</IfModule>
+
+    RewriteEngine On
+    # Cancel /manual server-level alias
+    RewriteRule ^/manual(.*) /other-manual$1 [L]
+
+</VirtualHost>
+
 ### END ###################################################################
 
     Replace path elements as required by your server.
-
+    
     Note: ServerAlias directive allows this to run as an independent multi-hosted
     service (with multiple DNS records) and each host have it's own local name.
 
     Note: RewriteMap is required for Geokrety functionality.
 
+    
+    
+SSL certificates
+================
+    
+    Use LetsEncrypt as provider. Use "dehydrated" package to manage LetsEncrypt 
+    updates.
+
+    - set the following (in the appropriate position, starting from sample config)
+/etc/dehydrated/config
+----------------------
+CHALLENGETYPE="dns-01"
+HOOK=/etc/dehydrated/hooks/hook.nsupdate.sh    
+
+    - include the following definition here
+/etc/dehydrated/domains.txt
+---------------------------
+# coord.eu
+coord.eu *.coord.eu > coord
+
+    - generate DNS key using the following command:
+root@server:~# cd /etc/dehydrated/hooks; dnssec-keygen -a HMAC-MD5 -b 128 -n HOST __your_dns_key__   
+
+    This will result in 2 files:
+    K__your_dns_key__.+157+12345.key
+    K__your_dns_key__.+157+12345.private
+    
+    Contact project owner at andrixnet@yahoo.com with:
+    __your_dns_key__ (key name)
+    From the second file take the line starting with "Key:"
+    
+    These are required to be configured in the master DNS for coord.eu zone
+    for the LetsEncrypt dns-01 validation to work (needed for wildcard certs)
+
+/etc/dehydrated/hooks/hook.nsupdate.sh
+--------------------------------------
+#!/usr/bin/env bash
+
+#
+# Example how to deploy a DNS challenge using nsupdate
+#
+
+#$1 an operation name (clean_challenge, deploy_challenge, deploy_cert,
+#invalid_challenge or request_failure) and some operands for that. For deploy_challenge
+#
+#$2 is the domain name for which the certificate is required,
+#
+#$3 is a "challenge token" (which is not needed for dns-01), and
+#
+#$4 is a token which needs to be inserted in a TXT record for the domain.
+
+set -e
+set -u
+set -o pipefail
+
+NSUPDATE="nsupdate -k /etc/dehydrated/hooks/K__your_dns_key__.+157+12345.private"
+DNSSERVER="ns.opencaching.ro"
+TTL=300
+ZONE="acme.opencaching.ro"
+
+case "$1" in
+    "deploy_challenge")
+        printf "server %s\nupdate add _acme-challenge.%s.%s. %d in TXT \"%s\"\nsend\n" "${DNSSERVER}" "${2}" "${ZONE}" "${TTL}" "$
+{4}" | $NSUPDATE
+        ;;
+    "clean_challenge")
+        printf "server %s\nupdate delete _acme-challenge.%s.%s. %d in TXT \"%s\"\nsend\n" "${DNSSERVER}" "${2}" "${ZONE}" "${TTL}"
+ "${4}" | $NSUPDATE
+        ;;
+    "deploy_cert")
+        # optional:
+        # /path/to/deploy_cert.sh "$@"
+        /etc/dehydrated/hooks/deploy_cert.sh "$@"
+        ;;
+    "unchanged_cert")
+        # do nothing for now
+        ;;
+    "startup_hook")
+        # do nothing for now
+        ;;
+    "exit_hook")
+        # do nothing for now
+        ;;
+esac
+
+exit 0
+### END hook.nsupdate.sh ##################################################
+
+/etc/dehydrated/hooks/deploy_cert.sh
+------------------------------------
+#!/bin/sh
+
+# Deploy updated certificates
+#
+# Assumes unchanged configurations, using symlinks from
+# certs directory, from servers point of view only
+# file contents changed.
+
+# Log action
+echo "Deploying certificate for domain $2" | logger -p cron.info
+
+# Restart Apache httpd
+/etc/rc.d/rc.httpd restart
+
+# add other services here
+### END deploy_cert.sh ####################################################
+
+    - set a cron job to check certificates periodically
+/etc/cron.d/dehydrated
+----------------------
+# MIN HOUR DAY MONTH DAYOFWEEK  COMMAND
+0 0 * * * /usr/bin/dehydrated -c 1>/dev/null
+    
 
 Update script
 =============
