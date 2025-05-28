@@ -5,32 +5,28 @@ RewriteBase /
 ##########################################################################
 
 # opencaching.RO
-RewriteRule ^(OR[0-9A-Z]{4,6})$ http://www.opencaching.ro/viewcache.php?wp=$1 [R=301,L,NC]
-RewriteRule ^OR/U/([0-9]{1,6})$ http://www.opencaching.ro/viewprofile.php?userid=$1 [R=301,L,NC]
+RewriteRule ^(OR[0-9A-Z]{4,6})$ https://www.opencaching.ro/viewcache.php?wp=$1 [R=301,L,NC]
+RewriteRule ^OR/U/([0-9]{1,6})$ https://www.opencaching.ro/viewprofile.php?userid=$1 [R=301,L,NC]
 
 # opencaching.PL
-RewriteRule ^(OP[0-9A-Z]{4,6})$ http://opencaching.pl/viewcache.php?wp=$1 [R=301,L,NC]
-RewriteRule ^OP/U/([0-9]{1,6})$ http://www.opencaching.pl/viewprofile.php?userid=$1 [R=301,L,NC]
+RewriteRule ^(OP[0-9A-Z]{4,6})$ https://opencaching.pl/viewcache.php?wp=$1 [R=301,L,NC]
+RewriteRule ^OP/U/([0-9]{1,6})$ https://www.opencaching.pl/viewprofile.php?userid=$1 [R=301,L,NC]
 
 # opencaching.NL
-RewriteRule ^(OB[0-9A-Z]{4,6})$ http://www.opencaching.nl/viewcache.php?wp=$1 [R=301,L,NC]
-RewriteRule ^OB/U/([0-9]{1,6})$ http://www.opencaching.nl/viewprofile.php?userid=$1 [R=301,L,NC]
+RewriteRule ^(OB[0-9A-Z]{4,6})$ https://www.opencaching.nl/viewcache.php?wp=$1 [R=301,L,NC]
+RewriteRule ^OB/U/([0-9]{1,6})$ https://www.opencaching.nl/viewprofile.php?userid=$1 [R=301,L,NC]
 
 # opencaching.DE opencaching.IT opencaching.FR opencachingspain.ES
-RewriteRule ^(OC[0-9A-Z]{4,6})$ http://www.opencaching.de/viewcache.php?wp=$1 [R=301,L,NC]
-RewriteRule ^OC/U/([0-9]{1,6})$ http://www.opencaching.de/viewprofile.php?userid=$1 [R=301,L,NC]
+RewriteRule ^(OC[0-9A-Z]{4,6})$ https://www.opencaching.de/viewcache.php?wp=$1 [R=301,L,NC]
+RewriteRule ^OC/U/([0-9]{1,6})$ https://www.opencaching.de/viewprofile.php?userid=$1 [R=301,L,NC]
 
 # opencache.UK
-RewriteRule ^(OK[0-9A-Z]{4,6})$ http://opencache.uk/viewcache.php?wp=$1 [R=301,L,NC]
-RewriteRule ^OK/U/([0-9]{1,6})$ http://opencache.uk/viewprofile.php?userid=$1 [R=301,L,NC]
+RewriteRule ^(OK[0-9A-Z]{4,6})$ https://opencache.uk/viewcache.php?wp=$1 [R=301,L,NC]
+RewriteRule ^OK/U/([0-9]{1,6})$ https://opencache.uk/viewprofile.php?userid=$1 [R=301,L,NC]
 
 # opencaching.US
-RewriteRule ^(OU[0-9A-Z]{4,6})$ http://www.opencaching.us/viewcache.php?wp=$1 [R=301,L,NC]
-RewriteRule ^OU/U/([0-9]{1,6})$ http://www.opencaching.us/viewprofile.php?userid=$1 [R=301,L,NC]
-
-# opencaching.CZ
-RewriteRule ^(OZ[0-9A-Z]{4,6})$ http://www.opencaching.cz/viewcache.php?wp=$1 [R=301,L,NC]
-RewriteRule ^OZ/U/([0-9]{1,6})$ http://www.opencaching.cz/viewprofile.php?userid=$1 [R=301,L,NC]
+RewriteRule ^(OU[0-9A-Z]{4,6})$ https://www.opencaching.us/viewcache.php?wp=$1 [R=301,L,NC]
+RewriteRule ^OU/U/([0-9]{1,6})$ https://www.opencaching.us/viewprofile.php?userid=$1 [R=301,L,NC]
 
 ### Trackables
 ##########################################################################
@@ -43,19 +39,19 @@ RewriteRule ^GK/([0-9A-Z]{6})$ https://geokrety.org/ruchy.php?nr=$1 [R=301,L,NC]
 ### GEOCACHING.com
 ##########################################################################
 
-# geocaching.com Geocache
+# Geocache
 RewriteRule ^(GC[0-9A-Z]{1,6})$ https://coord.info/$1 [R=301,L,NC]
 # View log
 RewriteRule ^GC/(GL[0-9A-Z]{1,8})$ https://coord.info/$1 [R=301,L,NC]
-# View user profile
-# Documentation : https://www.geocaching.com/help/index.php?pg=kb.chapter&id=27&pgid=115
-# But this reflects only the latest policy, which is rather restrictive.
-#RewriteRule ^GC/U/([0-9A-Z\-_\.äöüëïÿæœßáéíóúýàèìòùâêîôûçñåůčěňřšžťøď]{2,20})$ https://www.geocaching.com/track/details.aspx?tracker=$1 [R=301,L,NC]
-
-# geocaching.com TravelBug & Geocoin
+# View user profile (by profile code)
+RewriteRule ^GC/(PR[0-9A-Z]{1,6})$ https://coord.info/$1 [R=301,L,NC]
+# View user profile (by username)
+# Documentation on username rules: https://www.geocaching.com/help/index.php?pg=kb.chapter&id=27&pgid=115
+RewriteRule ^GC/U/([0-9A-Z_äöüëïÿæœßáéíóúýàèìòùâêîôûçñåůčěňřšžťøď]{2,20})$ https://www.geocaching.com/p/?u=$1 [R=301,L,NC]
+# Find TravelBug & Geocoin based on trackable identifier (TBxxxxx)
 RewriteRule ^(TB[0-9A-Z]{1,6})$ https://coord.info/$1 [R=301,L,NC]
 # Find trackable based on tracking code
 RewriteRule ^TB/([0-9A-Z]{6})$ https://www.geocaching.com/track/details.aspx?tracker=$1 [R=301,L,NC]
 # View trackable log
-RewriteRule ^TB/(TL[0-9A-Z]{1,8})$ https://coord.info/$1 [R=301,L,NC]
+RewriteRule ^TB/L/(TL[0-9A-Z]{1,8})$ https://coord.info/$1 [R=301,L,NC]
 

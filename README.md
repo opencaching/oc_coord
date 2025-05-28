@@ -11,6 +11,7 @@ Designed to automatically update from GitHub master repository.
 Current hosting mirrors:
 * OCRO
 * OCNL
+* OCUS
 
 -----
 If you whish to volunteer hosting an instance of this service, please contact the project owner by posting an issue on GitHub.
